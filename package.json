@@ -1,0 +1,21 @@
+{
+  "name": "stgengine",
+  "version": "0.0.1-alpha",
+  "description": "STGEngine for creating STG Games",
+  "main": "lib/index.js",
+  "scripts": {
+    "start": "tsc && electron .",
+    "build": "tsc"
+  },
+  "author": "Alex4386",
+  "license": "HRPL",
+  "dependencies": {
+    "electron": "^4.0.2",
+    "pixi.js": "^4.8.5",
+    "typescript": "^3.2.4"
+  },
+  "devDependencies": {
+    "@types/electron": "^1.6.10",
+    "@types/pixi.js": "^4.8.6"
+  }
+}
