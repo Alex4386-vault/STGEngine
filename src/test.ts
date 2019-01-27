@@ -13,11 +13,8 @@ var keyInputCheck = setInterval(() => {
     currentFrame++;
     let inputCheck = {currentFrame,key};
     inputCheck.currentFrame = currentFrame;
-    if (prevKey !== key) {
-        console.log(key);
-    }
-    console.debug(inputCheck);
-    prevKey = key;
+    //key Checkup Routine
+
 }, 1000/config.FRAME_LIMIT);
 
 var currentFPS = 0;
@@ -25,11 +22,13 @@ var lastFrameatSec = 0;
 
 var FPSCheck = setInterval( () => {
     currentFPS = currentFrame - lastFrameatSec;
-    console.log(currentFPS+"fps");
     lastFrameatSec = currentFrame;
+    if (config.SHOW_FPS) textFPS.text = currentFPS+"fps";
 }, 1000)
 
 document.body.appendChild(app.view);
+
+
 
 window.addEventListener("resize", () => {
     //maybe I might be working on resizing stuff
@@ -43,3 +42,15 @@ document.body.addEventListener("keydown", (e) => {
 document.body.addEventListener("keyup", (e) => {
     key.Input.keyUpHandler(e.key);
 });
+
+
+var textFPS = new PIXI.Text(currentFPS+'fps', {
+    fontFamily: 'Dosis',
+    fontSize: 20,
+    fill: 0xFFFFFF,
+    align: 'right',
+    wordWrap: true
+});
+
+textFPS.position.set(window.innerWidth-60,window.innerHeight-30);
+app.stage.addChild(textFPS);

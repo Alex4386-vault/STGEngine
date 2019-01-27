@@ -1,3 +1,4 @@
 export const config = {
-    FRAME_LIMIT: 20
+    FRAME_LIMIT: 120,
+    SHOW_FPS: true
 }
