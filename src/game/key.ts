@@ -10,6 +10,9 @@ export const key = {
         keyStatus: () => {
             console.debug(key);
         },
+        allkeyUp: () => {
+            key.keyUp = key.keyDown = key.keyLeft = key.keyRight = key.keyZ = key.keyX = key.keyC = false;
+        },
         keyDownHandler: (keyString: string|null) => {
             switch(keyString) {
                 case "ArrowUp":

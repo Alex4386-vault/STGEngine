@@ -8,6 +8,7 @@ export declare const key: {
     keyC: boolean;
     Input: {
         keyStatus: () => void;
+        allkeyUp: () => void;
         keyDownHandler: (keyString: string | null) => void;
         keyUpHandler: (keyString: string | null) => void;
     };

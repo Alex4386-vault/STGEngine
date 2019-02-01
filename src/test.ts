@@ -1,59 +1,69 @@
 import * as PIXI from 'pixi.js';
-import { key } from './key';
-import { config } from './config';
+import { key } from './game/key';
+import { config } from './config/config';
+import { Character } from './game/character';
 
-const app = new PIXI.Application(784,564);
+const app: PIXI.Application = new PIXI.Application(window.innerWidth, window.innerHeight);
+var char: Character;
 
-var currentFrame = 0;
+function init() {
+    document.body.appendChild(app.view);
+    textFPS.position.set(window.innerWidth-60,window.innerHeight-60);
+    app.stage.addChild(textFPS);
+}
 
-/* Debug Only */
-var prevKey = key;
+/**
+ * Main keyCheckRoutine.
+ * Triggered when keyCheck
+ */
+export function keyCheckRoutine():void {
+    let keyString: string = "";
+    keyString += key.keyZ ? "Z":"";
+    keyString += key.keyX ? "X":"";
+    keyString += key.keyC ? "C":"";
+    keyString += key.keyUp ? "↑":"";
+    keyString += key.keyDown ? "↓":"";
+    keyString += key.keyLeft ? "←":"";
+    keyString += key.keyRight ? "→":"";
+    textFPS.text = keyString;
+}
 
-var keyInputCheck = setInterval(() => {
-    currentFrame++;
-    let inputCheck = {currentFrame,key};
-    inputCheck.currentFrame = currentFrame;
-    //key Checkup Routine
-
-    let keyHold = "";
-    keyHold += key.keyUp ? "UP ":"";
-    keyHold += key.keyDown ? "DOWN ":"";
-    keyHold += key.keyLeft ? "LEFT ":"";
-    keyHold += key.keyRight ? "RIGHT ":"";
-    keyHold += key.keyZ ? "Z ":"";
-    keyHold += key.keyX ? "X ":"";
-    keyHold += key.keyC ? "C ":"";
-    keyHold += "\n";
-    if (config.SHOW_FPS) textFPS.text = keyHold+currentFPS+"fps";
-}, 1000/config.FRAME_LIMIT);
-
-var currentFPS = 0;
-var lastFrameatSec = 0;
-
-var FPSCheck = setInterval( () => {
-    currentFPS = currentFrame - lastFrameatSec;
-    lastFrameatSec = currentFrame;
-}, 1000)
-
-document.body.appendChild(app.view);
-
-
+function initCharacter() {
+    char = new Character(app, ["assets/character/smoooch_alsoyou-sprite.jpg"], 100);
+    
+}
 
 window.addEventListener("resize", () => {
     //maybe I might be working on resizing stuff
     app.renderer.resize(window.innerWidth, window.innerHeight);
+    textFPS.position.set(window.innerWidth-60,window.innerHeight-60);
 });
 
-document.body.addEventListener("keydown", (e) => {
+document.body.addEventListener("keydown", (e):void => {
     key.Input.keyDownHandler(e.key);
+    keyCheckRoutine();
 });
 
-document.body.addEventListener("keyup", (e) => {
+document.body.addEventListener("keyup", (e):void => {
     key.Input.keyUpHandler(e.key);
+    keyCheckRoutine();
 });
 
+document.body.addEventListener("focus", (e):void => {
+    if (!document.hasFocus()) {
+        key.Input.allkeyUp();
+        keyCheckRoutine();
+    }
+});
 
-var textFPS = new PIXI.Text(currentFPS+'fps', {
+var checkGhostKey = setInterval(() => {
+    if (!document.hasFocus()) {
+        key.Input.allkeyUp();
+        keyCheckRoutine();
+    }
+}, 1000);
+
+var textFPS = new PIXI.Text('currentKey:', {
     fontFamily: 'Dosis',
     fontSize: 20,
     fill: 0xFFFFFF,
@@ -61,5 +71,5 @@ var textFPS = new PIXI.Text(currentFPS+'fps', {
     wordWrap: true
 });
 
-textFPS.position.set(window.innerWidth-60,window.innerHeight-60);
-app.stage.addChild(textFPS);
+init();
+initCharacter();
