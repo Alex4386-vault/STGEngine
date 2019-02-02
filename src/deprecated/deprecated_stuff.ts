@@ -28,3 +28,15 @@ var keyInputCheck = setInterval(() => {
     inputCheck.currentFrame = currentFrame;
     keyCheckRoutine();
 }, 1000/config.FRAME_LIMIT);
+
+/*
+document.body.addEventListener("keydown", (e):void => {
+    key.Input.keyDownHandler(e.key);
+    keyCheckRoutine();
+});
+
+document.body.addEventListener("keyup", (e):void => {
+    key.Input.keyUpHandler(e.key);
+    keyCheckRoutine();
+});
+*/

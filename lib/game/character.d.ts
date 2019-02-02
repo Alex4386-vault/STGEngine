@@ -5,6 +5,7 @@ export declare class Character {
     y: number;
     private width;
     private height;
+    moving: boolean;
     private spriteImageList;
     private sprite;
     /**
@@ -19,4 +20,10 @@ export declare class Character {
      */
     constructor(app: PIXI.Application, spriteImageList: string[], width: number, height?: number, x?: number, y?: number);
     update(): void;
+    /**
+     * Move Character from current location
+     * @param x  move character amount of x
+     * @param y  move character amount of y
+     */
+    move(x: number, y: number): void;
 }

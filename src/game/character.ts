@@ -4,6 +4,7 @@ export class Character {
     public y: number;
     private width: number;
     private height: number;
+    public moving: boolean = false;
     private spriteImageList: string[];
 
     private sprite: PIXI.Sprite;
@@ -40,6 +41,14 @@ export class Character {
         this.sprite.position.y = this.y;
     }
 
-
+    /**
+     * Move Character from current location
+     * @param x  move character amount of x
+     * @param y  move character amount of y
+     */
+    public move(x: number, y: number) {
+        this.x = this.x + x;
+        this.y = this.y + y;
+    }
     
 }
