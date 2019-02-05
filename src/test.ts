@@ -36,11 +36,13 @@ export function keyCheckRoutine():void {
 export function charMoveRoutine():void {
 
     var moveX:number
-      = key.keyRight ? config.playerVelocity :
+      = key.keyLeft && key.keyRight ? 0 : 
+        key.keyRight ? config.playerVelocity :
         key.keyLeft ? -config.playerVelocity :
         0;
     var moveY:number
-      = key.keyUp ? -config.playerVelocity :
+      = key.keyUp && key.keyDown ? 0 :
+        key.keyUp ? -config.playerVelocity :
         key.keyDown ? config.playerVelocity :
         0;
 
